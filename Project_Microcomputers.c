@@ -241,7 +241,6 @@ void loop()
 						Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
 						Lcd.print(Min10_Value_uint);
 					}
-  
 				}
             
 				Previous_Time_uint = Current_Time_uint;
