@@ -46,7 +46,7 @@ bool Stop_Button_Status_b = NOT_PRESSED;
 bool Min_Button_Status_b = NOT_PRESSED;
 bool Sec_Button_Status_b = NOT_PRESSED;
 
-LiquidCrystal lcd(RS, E, DB4, DB5, DB6, DB7);
+LiquidCrystal Lcd(RS, E, DB4, DB5, DB6, DB7);
 
 void setup()
 {
@@ -56,9 +56,9 @@ void setup()
     pinMode(MIN, INPUT);
     pinMode(SEC, INPUT);
     pinMode(RUN, OUTPUT);
-    lcd.begin(LCD_SIXTEEN_COLUMNS, LCD_TWO_ROWS);
-    lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
-    lcd.print(LCD_INIT);
+    Lcd.begin(LCD_SIXTEEN_COLUMNS, LCD_TWO_ROWS);
+    Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
+    Lcd.print(LCD_INIT);
 }
 
 void loop()
@@ -80,8 +80,8 @@ void loop()
         Min10_Value_uint = DEFAULT_ZERO;
         Min_Value_uint = DEFAULT_ZERO;
         Sec_Value_uint = DEFAULT_ZERO;
-        lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
-        lcd.print(LCD_INIT);
+        Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
+        Lcd.print(LCD_INIT);
     }
     else
     {
@@ -99,14 +99,14 @@ void loop()
 				Min10_Value_uint += DEFAULT_ONE;
 				if(DEFAULT_TEN > Min10_Value_uint)
 				{
-					lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
-					lcd.print(Min10_Value_uint);
+					Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
+					Lcd.print(Min10_Value_uint);
 				}
 				else
 				{
 					Min10_Value_uint = DEFAULT_ZERO;
-					lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
-					lcd.print(Min10_Value_uint);
+					Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
+					Lcd.print(Min10_Value_uint);
 				}
 				
 			Previous_Time_uint = Current_Time_uint;
@@ -129,14 +129,14 @@ void loop()
 				Min_Value_uint += DEFAULT_ONE;
 				if(DEFAULT_TEN > Min_Value_uint)
 				{
-					lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
-					lcd.print(Min_Value_uint);
+					Lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
+					Lcd.print(Min_Value_uint);
 				}
 				else
 				{
 					Min_Value_uint = DEFAULT_ZERO;
-					lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
-					lcd.print(Min_Value_uint);
+					Lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
+					Lcd.print(Min_Value_uint);
 				}
 				
 			Previous_Time_uint = Current_Time_uint;
@@ -159,14 +159,14 @@ void loop()
 				Sec_Value_uint += DEFAULT_TEN;
 				if(DEFAULT_SIXTY > Sec_Value_uint)
 				{
-					lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
-					lcd.print(Sec_Value_uint);
+					Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
+					Lcd.print(Sec_Value_uint);
 				}
 				else
 				{
 					Sec_Value_uint = DEFAULT_ZERO;
-					lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
-					lcd.print(Sec_Value_uint);
+					Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
+					Lcd.print(Sec_Value_uint);
 				}
 				
 			Previous_Time_uint = Current_Time_uint;
@@ -187,8 +187,8 @@ void loop()
         if(DEFAULT_ZERO == Min10_Value_uint && DEFAULT_ZERO == Min_Value_uint && DEFAULT_ZERO == Sec_Value_uint)
         {
             digitalWrite(RUN, COUNTDOWN_NOT_STARTED);
-            lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
-            lcd.print(LCD_INIT);
+            Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
+            Lcd.print(LCD_INIT);
             Min10_Value_uint = DEFAULT_ZERO;
             Min_Value_uint = DEFAULT_ZERO;
             Sec_Value_uint = DEFAULT_ZERO;
@@ -203,15 +203,15 @@ void loop()
 					Sec_Value_uint -= DEFAULT_ONE;
 					if(DEFAULT_NINE < Sec_Value_uint)
 					{
-						lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
-						lcd.print(Sec_Value_uint);
+						Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Sec_Value_uint);
 					}
 					else if(DEFAULT_TEN > Sec_Value_uint)
 					{
-						lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
-						lcd.print(DEFAULT_ZERO);
-						lcd.setCursor(LCD_FIFTH_COLUMN, LCD_FIRST_ROW);
-						lcd.print(Sec_Value_uint);
+						Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(DEFAULT_ZERO);
+						Lcd.setCursor(LCD_FIFTH_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Sec_Value_uint);
 					}
 					else
 					{
@@ -224,22 +224,22 @@ void loop()
 					if(DEFAULT_ZERO != Min_Value_uint)
 					{
 						Min_Value_uint -= DEFAULT_ONE;
-						lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
-						lcd.print(Min_Value_uint);
-						lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
-						lcd.print(Sec_Value_uint);
+						Lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Min_Value_uint);
+						Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Sec_Value_uint);
 					}
 					else
 					{
 						Min_Value_uint = DEFAULT_NINE;
-						lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
-						lcd.print(Min_Value_uint);
-						lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
-						lcd.print(Sec_Value_uint);
+						Lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Min_Value_uint);
+						Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Sec_Value_uint);
                   
 						Min10_Value_uint -= DEFAULT_ONE;
-						lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
-						lcd.print(Min10_Value_uint);
+						Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Min10_Value_uint);
 					}
   
 				}
