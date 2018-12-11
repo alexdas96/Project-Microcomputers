@@ -19,7 +19,7 @@
 #define DEFAULT_FIFTY_NINE 59
 #define DEFAULT_SIXTY 60
 #define BUTTON_PRESS_CYCLE 100
-#define ONE_SECOND_CYCLE 1000
+#define ONE_SECOND_CYCLE 100
 #define LCD_INIT "00:00"
 #define LCD_SIXTEEN_COLUMNS 16
 #define LCD_TWO_ROWS 2
@@ -41,9 +41,12 @@ unsigned int Min_Value_uint = DEFAULT_ZERO;
 unsigned int Sec_Value_uint = DEFAULT_ZERO;
 bool Run_Led_Status_b = COUNTDOWN_NOT_STARTED;
 bool Start_Button_Status_b = NOT_PRESSED;
-bool Min10_Button_Status_b = NOT_PRESSED;
 bool Stop_Button_Status_b = NOT_PRESSED;
+bool Min10_Button_Old_Status_b = NOT_PRESSED;
+bool Min10_Button_Status_b = NOT_PRESSED;
+bool Min_Button_Old_Status_b = NOT_PRESSED;
 bool Min_Button_Status_b = NOT_PRESSED;
+bool Sec_Button_Old_Status_b = NOT_PRESSED;
 bool Sec_Button_Status_b = NOT_PRESSED;
 
 LiquidCrystal Lcd(RS, E, DB4, DB5, DB6, DB7);
@@ -96,98 +99,124 @@ void loop()
     }
 
     if(COUNTDOWN_NOT_STARTED == Run_Led_Status_b)
-    {
-      
-        if(PRESSED == Min10_Button_Status_b)
-        {
-			Current_Time_uint = millis();
-			if(BUTTON_PRESS_CYCLE <= Current_Time_uint - Previous_Time_uint)
+    {     
+		if(Min10_Button_Old_Status_b != Min10_Button_Status_b)
+		{
+			if(PRESSED == Min10_Button_Status_b)
 			{
-				Min10_Value_uint += DEFAULT_ONE;
-				if(DEFAULT_TEN > Min10_Value_uint)
+				Current_Time_uint = millis();
+				if(BUTTON_PRESS_CYCLE <= Current_Time_uint - Previous_Time_uint)
 				{
-					Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
-					Lcd.print(Min10_Value_uint);
+					Min10_Value_uint += DEFAULT_ONE;
+					if(DEFAULT_TEN > Min10_Value_uint)
+					{
+						Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Min10_Value_uint);
+					}
+					else
+					{
+						Min10_Value_uint = DEFAULT_ZERO;
+						Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Min10_Value_uint);
+					}
+			
+				
+					Previous_Time_uint = Current_Time_uint;
 				}
 				else
 				{
-					Min10_Value_uint = DEFAULT_ZERO;
-					Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
-					Lcd.print(Min10_Value_uint);
+					/*Do nothing*/
 				}
-				
-			Previous_Time_uint = Current_Time_uint;
 			}
 			else
 			{
 				/*Do nothing*/
 			}
-        }
-        else
-        {
-            /*Do nothing*/
-        }
-
-        if(PRESSED == Min_Button_Status_b)
-        {
-			Current_Time_uint = millis();
-			if(BUTTON_PRESS_CYCLE <= Current_Time_uint - Previous_Time_uint)
-			{
-				Min_Value_uint += DEFAULT_ONE;
-				if(DEFAULT_TEN > Min_Value_uint)
-				{
-					Lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
-					Lcd.print(Min_Value_uint);
-				}
-				else
-				{
-					Min_Value_uint = DEFAULT_ZERO;
-					Lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
-					Lcd.print(Min_Value_uint);
-				}
-				
-			Previous_Time_uint = Current_Time_uint;
-			}
-			else
-			{
-				/*Do nothing*/
-			}
+			
+			Min10_Button_Old_Status_b = Min10_Button_Status_b;
 		}
-        else
-        {
+		else
+		{
 			/*Do nothing*/
-        }
+		}	
 
-        if(PRESSED == Sec_Button_Status_b)
-        {
-			Current_Time_uint = millis();
-			if(BUTTON_PRESS_CYCLE <= Current_Time_uint - Previous_Time_uint)
+		if(Min_Button_Old_Status_b != Min_Button_Status_b)
+		{
+			if(PRESSED == Min_Button_Status_b)
 			{
-				Sec_Value_uint += DEFAULT_TEN;
-				if(DEFAULT_SIXTY > Sec_Value_uint)
+				Current_Time_uint = millis();
+				if(BUTTON_PRESS_CYCLE <= Current_Time_uint - Previous_Time_uint)
 				{
-					Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
-					Lcd.print(Sec_Value_uint);
+					Min_Value_uint += DEFAULT_ONE;
+					if(DEFAULT_TEN > Min_Value_uint)
+					{
+						Lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Min_Value_uint);
+					}
+					else
+					{
+						Min_Value_uint = DEFAULT_ZERO;
+						Lcd.setCursor(LCD_SECOND_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Min_Value_uint);
+					}
+				
+					Previous_Time_uint = Current_Time_uint;
 				}
 				else
 				{
-					Sec_Value_uint = DEFAULT_ZERO;
-					Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
-					Lcd.print(Sec_Value_uint);
+					/*Do nothing*/
 				}
-				
-			Previous_Time_uint = Current_Time_uint;
 			}
 			else
 			{
 				/*Do nothing*/
 			}
-        }
-        else
-        {
-            /*Do nothing*/
-        }
-        
+			
+			Min_Button_Old_Status_b = Min_Button_Status_b;
+		}
+		else
+		{
+			/*Do nothing*/
+		}
+		
+		if(Sec_Button_Old_Status_b != Sec_Button_Status_b)
+		{
+			if(PRESSED == Sec_Button_Status_b)
+			{
+				Current_Time_uint = millis();
+				if(BUTTON_PRESS_CYCLE <= Current_Time_uint - Previous_Time_uint)
+				{
+					Sec_Value_uint += DEFAULT_TEN;
+					if(DEFAULT_SIXTY > Sec_Value_uint)
+					{
+						Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Sec_Value_uint);
+					}
+					else
+					{
+						Sec_Value_uint = DEFAULT_ZERO;
+						Lcd.setCursor(LCD_FOURTH_COLUMN, LCD_FIRST_ROW);
+						Lcd.print(Sec_Value_uint);
+					}
+				
+					Previous_Time_uint = Current_Time_uint;
+				}
+				else
+				{
+					/*Do nothing*/
+				}
+			}
+			else
+			{
+				/*Do nothing*/
+			}
+			
+			Sec_Button_Old_Status_b = Sec_Button_Status_b;
+		}
+		else
+		{
+			/*Do nothing*/
+		}
     }
     else
     {
