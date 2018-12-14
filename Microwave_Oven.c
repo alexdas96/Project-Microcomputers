@@ -47,7 +47,7 @@ bool Min10_Button_Status_b = NOT_PRESSED;
 bool Min_Button_Old_Status_b = NOT_PRESSED;
 bool Min_Button_Status_b = NOT_PRESSED;
 bool Sec_Button_Old_Status_b = NOT_PRESSED;
-bool Sec_Button_Status_b = NOT_PRESSED;
+bool Sec_Button_Status_b = NOT_PRESSED; 
 
 LiquidCrystal Lcd(RS, E, DB4, DB5, DB6, DB7);
 
