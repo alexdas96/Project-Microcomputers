@@ -49,7 +49,7 @@ LiquidCrystal_I2C Lcd(LCD_I2C_ADDRESS, LCD_SIXTEEN_COLUMNS, LCD_TWO_ROWS);
 
 void setup()
 {
-	pinMode(RUN, OUTPUT);
+    pinMode(RUN, OUTPUT);
     pinMode(START, INPUT);
     pinMode(STOP, INPUT);
     pinMode(MIN10, INPUT);
@@ -57,7 +57,7 @@ void setup()
     pinMode(SEC, INPUT);
 	
     Lcd.init();                      
-	Lcd.backlight();
+    Lcd.backlight();
     Lcd.setCursor(LCD_FIRST_COLUMN, LCD_FIRST_ROW);
     Lcd.print(LCD_INIT);
 }
@@ -73,7 +73,7 @@ void loop()
 
     if(BUTTON_PRESSED == Start_Button_Status_b)
     {
-		if(DEFAULT_ZERO == Min10_Value_uint && DEFAULT_ZERO == Min_Value_uint && DEFAULT_ZERO == Sec_Value_uint)
+	if(DEFAULT_ZERO == Min10_Value_uint && DEFAULT_ZERO == Min_Value_uint && DEFAULT_ZERO == Sec_Value_uint)
         {
             digitalWrite(RUN, COUNTDOWN_NOT_STARTED);
         }
